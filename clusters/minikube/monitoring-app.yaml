@@ -26,4 +26,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+      - ServerSideApply=true  # This option allows ArgoCD to use server-side apply, which can help with managing resources that are also modified by other controllers (like the Prometheus Operator).
