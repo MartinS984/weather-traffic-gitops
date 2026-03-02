@@ -1,4 +1,4 @@
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaNodePool
 metadata:
   name: single-node
@@ -12,7 +12,7 @@ spec:
   storage:
     type: ephemeral
 ---
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: Kafka
 metadata:
   name: weather-broker
@@ -21,8 +21,8 @@ metadata:
     strimzi.io/kraft: enabled
 spec:
   kafka:
-    version: 3.9.0
-    metadataVersion: 3.9-IV0
+    version: 4.1.0
+    metadataVersion: 4.1-IV0
     listeners:
       - name: plain
         port: 9092
@@ -38,7 +38,7 @@ spec:
     topicOperator: {}
     userOperator: {}
 ---
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaTopic
 metadata:
   name: iot-weather-data
