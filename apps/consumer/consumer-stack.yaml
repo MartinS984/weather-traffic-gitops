@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: node-consumer
-          image: martins984/weather-traffic-consumer:v1.0.1
+          image: martins984/weather-traffic-consumer:v1.0.2
           imagePullPolicy: Always
           ports:
             - containerPort: 3001
