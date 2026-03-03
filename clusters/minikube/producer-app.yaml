@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: telemetry-producer
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/MartinS984/weather-traffic-gitops.git'
+    targetRevision: HEAD
+    path: apps/producer
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
