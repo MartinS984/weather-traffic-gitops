@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telemetry-consumer
+  namespace: default
+  labels:
+    app: telemetry-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: telemetry-consumer
+  template:
+    metadata:
+      labels:
+        app: telemetry-consumer
+    spec:
+      containers:
+        - name: node-consumer
+          image: martins984/weather-traffic-consumer:v1.0.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3001
+              name: metrics
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: telemetry-consumer-svc
+  namespace: default
+  labels:
+    app: telemetry-consumer
+spec:
+  selector:
+    app: telemetry-consumer
+  ports:
+    - port: 3001
+      targetPort: 3001
+      name: metrics
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: telemetry-consumer-monitor
+  namespace: default
+  labels:
+    # This label tells the Prometheus Operator to pick up this monitor
+    release: kube-prometheus-stack 
+spec:
+  selector:
+    matchLabels:
+      app: telemetry-consumer
+  endpoints:
+    - port: metrics
+      interval: 5s
+      path: /metrics
