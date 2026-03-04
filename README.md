@@ -25,6 +25,23 @@ This repository contains the declarative GitOps configuration for a local Kubern
 
 ---
 
+### Phase 4: Telemetry Producer (Node.js)
+* Built a Node.js microservice (`kafkajs`) to simulate IoT sensors in Skopje.
+* Emits randomized JSON payloads for temperature and traffic flow every 3 seconds.
+* Containerized and deployed via ArgoCD as `telemetry-producer`.
+
+### Phase 5: Telemetry Consumer (Node.js)
+* Built a Node.js microservice (`prom-client`) to act as the metrics bridge.
+* Consumes Kafka messages and translates them into Prometheus Gauges.
+* Exposes a `/metrics` HTTP endpoint.
+* Deployed via ArgoCD alongside a `ServiceMonitor` for automated Prometheus scraping.
+
+### Phase 6: Observability Control Room (Grafana)
+* Wired Prometheus directly into Grafana via internal cluster DNS.
+* Built real-time dashboards using the following PromQL queries:
+  * **Temperature:** `weather_temperature_celsius`
+  * **Traffic Flow:** `traffic_cars_per_minute`
+
 ## 📖 SRE Runbook: Local Operations
 
 Due to the nature of local Minikube deployments, aggressive host sleep states or Docker restarts can sever network tunnels or stall initializing pods. Use these commands to restore the control center.
