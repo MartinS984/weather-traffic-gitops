@@ -1,5 +1,7 @@
 # Weather & Traffic IoT GitOps Infrastructure
 
+> 🔗 **Companion Repository:** This repository contains the **Kubernetes infrastructure and ArgoCD deployment manifests**. The actual Node.js microservice source code (the Producer and Consumer) that runs on this cluster can be found here: [**MartinS984/weather-traffic-app**](https://github.com/MartinS984/weather-traffic-app)
+
 This repository contains the declarative GitOps configuration for a local Kubernetes infrastructure designed to ingest, stream, and monitor IoT weather and traffic telemetry.
 
 ## 🏗️ Architecture Stack
